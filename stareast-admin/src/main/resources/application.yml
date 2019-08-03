@@ -70,7 +70,7 @@ spring:
 # MyBatis
 # PageHelper分页插件
 pagehelper: 
-  helperDialect: mysql
+  helperDialect: oracle
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql 

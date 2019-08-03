@@ -32,6 +32,9 @@ public class SysIndexController extends BaseController {
     public String index(ModelMap mmap) {
         // 取身份信息
         SysUser user = getSysUser();
+        if (user.getAvatar() == null) {
+            user.setAvatar("");
+        }
         // 根据用户id取出菜单
         List<SysMenu> menus = menuService.selectMenusByUser(user);
         mmap.put("menus", menus);

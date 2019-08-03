@@ -23,7 +23,8 @@ create table sys_dept (
   create_by         varchar(264)    default '',
   create_time 	    date,
   update_by         varchar2(64)    default '',
-  update_time       date
+  update_time       date,
+  remark 		    varchar2(500) 	default ''
 );
 
 alter table sys_dept add constraint pk_sys_dept primary key (dept_id);
@@ -43,6 +44,7 @@ comment on column sys_dept.create_by    is '创建者';
 comment on column sys_dept.create_time  is '创建时间';
 comment on column sys_dept.update_by    is '更新者';
 comment on column sys_dept.update_time  is '更新时间';
+comment on column sys_user.remark       is '备注';
 
 -- ----------------------------
 -- 初始化-部门表数据

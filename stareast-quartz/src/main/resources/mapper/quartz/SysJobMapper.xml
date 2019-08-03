@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<sql id="selectJobVo">
-        select job_id, job_name, job_group, method_name, method_params, cron_expression, misfire_policy, status, create_by, create_time, remark 
+        select job_id, job_name, job_group, method_name, method_params, cron_expression, misfire_policy, status, create_by, create_time, remark
 		from sys_job
     </sql>
 	
@@ -29,13 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectJobVo"/>
 		<where>
 			<if test="jobName != null and jobName != ''">
-				AND job_name like concat('%', #{jobName}, '%')
+				AND job_name like concat(concat('%',#{jobName}),'%')
 			</if>
 			<if test="status != null and status != ''">
 				AND status = #{status}
 			</if>
 			<if test="methodName != null and methodName != ''">
-				AND method_name like concat('%', #{methodName}, '%')
+				AND method_name like concat(concat('%',#{methodName}),'%')
 			</if>
 		</where>
 	</select>
@@ -72,12 +72,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="status !=null">status = #{status},</if>
  			<if test="remark != null and remark != ''">remark = #{remark},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
- 			update_time = sysdate()
+ 			update_time = sysdate
  		</set>
  		where job_id = #{jobId}
 	</update>
  	
  	<insert id="insertJob" parameterType="SysJob" useGeneratedKeys="true" keyProperty="jobId">
+ 	    <selectKey keyProperty="jobId" resultType="long" order="BEFORE">
+			SELECT seq_sys_job.NEXTVAL as jobId FROM DUAL
+		</selectKey>
  		insert into sys_job(
  			<if test="jobId != null and jobId != 0">job_id,</if>
  			<if test="jobName != null and jobName != ''">job_name,</if>
@@ -101,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="status != null and status != ''">#{status},</if>
  			<if test="remark != null and remark != ''">#{remark},</if>
  			<if test="createBy != null and createBy != ''">#{createBy},</if>
- 			sysdate()
+ 			sysdate
  		)
 	</insert>
 
