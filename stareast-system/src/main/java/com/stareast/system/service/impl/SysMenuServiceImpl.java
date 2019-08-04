@@ -177,7 +177,8 @@ public class SysMenuServiceImpl implements ISysMenuService {
         StringBuffer sb = new StringBuffer();
         sb.append(menu.getMenuName());
         if (permsFlag) {
-            sb.append("<font color=\"#888\">&nbsp;&nbsp;&nbsp;" + menu.getPerms() + "</font>");
+            String perms = StringUtils.isEmpty(menu.getPerms()) ? StringUtils.EMPTY : menu.getPerms();
+            sb.append("<font color=\"#888\">&nbsp;&nbsp;&nbsp;" + perms + "</font>");
         }
         return sb.toString();
     }

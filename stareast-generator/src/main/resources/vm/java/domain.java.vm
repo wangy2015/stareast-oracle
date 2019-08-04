@@ -28,7 +28,7 @@ import java.util.Date;
 public class ${className} extends BaseEntity{
     private static final long serialVersionUID = 1L;
 
-    @TableId
+    @TableId(value = "$primaryKey.attrname",type = IdType.UUID)
     private $primaryKey.attrType $primaryKey.attrname;
 	
 #foreach ($column in $columns)
